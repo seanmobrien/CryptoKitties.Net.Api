@@ -30,7 +30,8 @@ namespace CryptoKitties.Net.Api.RestClient
             IDictionary<string, string> queryString = default(IDictionary<string, string>))
             where TResult : class
         {
-            queryString = query?.ToQueryDictionary(queryString) ?? throw new ArgumentNullException(nameof(query));
+            if  (query == null) { throw new ArgumentNullException(nameof(query)); }
+            queryString = query.ToQueryDictionary(queryString);
             return await ServiceGet<TResult>(instance, uri, queryString);
         }
         /// <summary>

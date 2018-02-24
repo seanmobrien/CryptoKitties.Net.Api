@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Serialization;
 using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.GeneScience
@@ -30,9 +26,11 @@ namespace CryptoKitties.Net.Api.GeneScience
 
             // get hash of bytes arrays as a big-endian int
             // hash = sha3.keccak_256(alls);  hash = int.from_bytes(hash.digest(), byteorder = 'big')
-            var hashBytes = alls.Sha3Keccack();
+            var hashBytesYuck = alls.Sha3Keccack();            
             // No reason to convert has to bgint is there
-            // var hash = new BigInteger(CryptoUtility.ForceBigEndian(hashBytes));
+            var hash = new BigInteger(1, hashBytesYuck);
+           
+
             // Get 5-bit chunks of matron and sire 
             var matronMasks = MaskGenes(matronGenes);
             var sireMasks = MaskGenes(sireGenes);
@@ -47,7 +45,7 @@ namespace CryptoKitties.Net.Api.GeneScience
                 for (var smallcounter = 3; smallcounter > 0; smallcounter--)
                 {
                     var count = 4 * bigcounter + smallcounter;
-                    var maskedHash = GeneByteMask(hashBytes, hashindex, 2);
+                    var maskedHash = GeneByteMask(hash, hashindex, 2);
                     hashindex += 2;
                     if (maskedHash == 0)
                     {
@@ -70,7 +68,7 @@ namespace CryptoKitties.Net.Api.GeneScience
                     var tmp2 = sireMaskCopy[cnt] & 1;
                     if (tmp1 != tmp2)
                     {
-                        var maskedHash = GeneByteMask(hashBytes, hashindex, 3);
+                        var maskedHash = GeneByteMask(hash, hashindex, 3);
                         hashindex += 3;               
                         var mask1 = matronMaskCopy[cnt];
                         var mask2 = sireMaskCopy[cnt];
@@ -105,7 +103,7 @@ namespace CryptoKitties.Net.Api.GeneScience
                     }
                 }
                 // Determine whether sire or matron should pass on gene
-                var checkMask = GeneByteMask(hashBytes, hashindex, 1);
+                var checkMask = GeneByteMask(hash, hashindex, 1);
                 hashindex += 1;
                 // And add to output accordingly
                 outmasks.Add(checkMask == 0 ? matronMaskCopy[cnt] : sireMaskCopy[cnt]);                
@@ -151,12 +149,25 @@ namespace CryptoKitties.Net.Api.GeneScience
             }
             return ret.ToArray();
         }
-
+        [Obsolete("Try to use the BigInt version when possible")]
         private static byte GeneByteMask(byte[] input, int start, int numberOfBytes)
         {
-            var mask = (int)Math.Pow(2, numberOfBytes) - 1;
-            mask = mask << start;
-            var ret = new BigInteger(input).And(BigInteger.ValueOf(mask));
+            return GeneByteMask(new BigInteger(input), start, numberOfBytes);
+        }
+        /// <summary>
+        /// Gene bytemask function extracts a gene bit from <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="BigInteger"/> containing gene data.</param>
+        /// <param name="start">The offset bit</param>
+        /// <param name="numberOfBytes">Number of bits.</param>
+        /// <returns>The masked byte.</returns>
+        private static byte GeneByteMask(BigInteger input, int start, int numberOfBytes)
+        {
+            // mask = 2**numbytes - 1
+            var mask = BigInteger.Two.Pow(numberOfBytes).Subtract(BigInteger.One);
+            // mask = mask << start
+            mask = mask.ShiftLeft(start);
+            var ret = input.And(mask);
             ret = ret.ShiftRight(start);
             return (byte) ret.IntValue;
         }

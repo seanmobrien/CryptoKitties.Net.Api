@@ -33,6 +33,7 @@ namespace CryptoKitties.Net.Api.GeneScience
             var output = new byte[digest.GetDigestSize()];
             digest.BlockUpdate(value, 0, value.Length);
             digest.DoFinal(output, 0);
+                    
             return output;
         }
 

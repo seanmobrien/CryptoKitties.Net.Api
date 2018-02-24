@@ -1,3 +1,5 @@
+#define OLD_VS
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
@@ -20,8 +22,13 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         [EditorBrowsable(EditorBrowsableState.Never)]
         public IList<Auction> Auctions
         {
+#if OLD_VS
+            get { return Items; }
+            set { Items = value; }
+#else
             get => Items;
             set => Items = value;
-        }
+#endif
+            }
     }
 }
