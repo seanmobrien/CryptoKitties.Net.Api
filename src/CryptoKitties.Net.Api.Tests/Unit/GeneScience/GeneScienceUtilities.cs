@@ -28,6 +28,7 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Unit.GeneScience
             RunTest(set);
         }
 
+
         void RunTest(GeneScienceSet set)
         {
             var actual = Net.Api.GeneScience.GeneScienceUtilities.SimulateOffspring(

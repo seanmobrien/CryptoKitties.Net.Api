@@ -1,0 +1,18 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <IgnoredTests>
+      <FixtureTestSelector>
+        <FixtureName>CryptoKitties.Net.Api.Tests.Unit.Integration.AuctionServiceIntegrationTests</FixtureName>
+      </FixtureTestSelector>
+      <FixtureTestSelector>
+        <FixtureName>CryptoKitties.Net.Api.Tests.Unit.Integration.CattributeServiceIntegrationTests</FixtureName>
+      </FixtureTestSelector>
+      <FixtureTestSelector>
+        <FixtureName>CryptoKitties.Net.Api.Tests.Unit.Integration.KittyServiceIntegrationTests</FixtureName>
+      </FixtureTestSelector>
+      <FixtureTestSelector>
+        <FixtureName>CryptoKitties.Net.Api.Tests.Unit.Work</FixtureName>
+      </FixtureTestSelector>
+    </IgnoredTests>
+  </Settings>
+</ProjectConfiguration>
