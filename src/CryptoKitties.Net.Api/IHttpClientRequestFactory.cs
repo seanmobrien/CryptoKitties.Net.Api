@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace CryptoKitties.Net.Api.RestClient
+namespace CryptoKitties.Net.Api
 {
     public interface IHttpClientRequestFactory
     {

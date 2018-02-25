@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.Tests.Unit.Unit.GeneScience
 {
     [TestClass]
-    public class GeneScienceUtilities
+    public class GeneScienceUtilitiesTests
     {
         public TestContext TestContext { get; set; }
 

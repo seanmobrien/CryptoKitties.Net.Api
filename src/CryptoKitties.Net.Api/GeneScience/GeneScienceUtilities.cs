@@ -5,6 +5,9 @@ using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.GeneScience
 {
+    /// <summary>
+    /// The <see cref="GeneScienceUtilities"/> class contains a simulation of the offical Gene Science algorithm implemented by the smart contract.
+    /// </summary>
     public static class GeneScienceUtilities
     {
         /// <summary>
@@ -20,25 +23,57 @@ namespace CryptoKitties.Net.Api.GeneScience
             // concatenate bytes arrays - blockhashes + matronGenes + sireGenes + matronCooldownEndBlock
             var alls = new List<byte>();
             AppendBytes(alls, cooldownBlockHash);
-            var matronGenes = AppendBytes(alls, matron);
-            var sireGenes = AppendBytes(alls, sire);
+            AppendBytes(alls, matron);
+            AppendBytes(alls, sire);
             AppendBytes(alls, matronCooldownEndBlock);
 
-            // get hash of bytes arrays as a big-endian int
-            // hash = sha3.keccak_256(alls);  hash = int.from_bytes(hash.digest(), byteorder = 'big')
-            var hashBytesYuck = alls.Sha3Keccack();            
-            // No reason to convert has to bgint is there
-            var hash = new BigInteger(1, hashBytesYuck);
-           
+            // get hash of bytes arrays as a big-ol' (big-endian?) int
+            // hash = sha3.keccak_256(alls);  hash = int.from_bytes(hash.digest(), byteorder = 'big')            
+            var hash = new BigInteger(1, alls.Sha3Keccack());
 
-            // Get 5-bit chunks of matron and sire 
-            var matronMasks = MaskGenes(matronGenes);
-            var sireMasks = MaskGenes(sireGenes);
+            // Get 5-bit chunks of matron and sire             
+            var matronMask = MaskGenes(matron);
+            var sireMask = MaskGenes(sire);
        
             // Swap dom/rec gene traits in parents
-            byte[] matronMaskCopy;
-            byte[] sireMaskCopy;
-            var hashindex = SwapParentGenes(hash, matronMasks, out matronMaskCopy, sireMasks, out sireMaskCopy);
+            var hashindex = SwapParentGenes(hash, matronMask, sireMask);
+            // combine genes from swapped parent genes, introducing mutations
+            var outmasks = MutateGenes(hash, hashindex, matronMask, sireMask);
+            
+            // this is where we will accumulate the calculated child genes
+            var outs = BigInteger.Zero;
+            for (var cnt = 0; cnt < 0x30; cnt++)
+            {
+                var part = BigInteger.ValueOf(outmasks[cnt]).ShiftLeft(5 * cnt);
+                outs = outs.Or(part);
+            }
+            return outs;
+        }
+        /// <summary>
+        /// Extracts gene mask from <paramref name="genes"/>.
+        /// </summary>
+        /// <param name="genes"></param>
+        /// <returns>The masked genepool.</returns>
+        private static byte[] MaskGenes(BigInteger genes)
+        {
+            const int count = 0x30;
+            var ret = new byte[count];
+            for (var idx = 0; idx < count; idx++)
+            {
+                ret[idx] = GeneByteMask(genes, 5 * idx, 5);
+            }
+            return ret;
+        }
+        /// <summary>
+        /// Combine genes from swapped parents, introducing mutations.
+        /// </summary>
+        /// <param name="hash">A <see cref="BigInteger"/> that contains the block hash.</param>
+        /// <param name="hashindex">An <see cref="int"/> identifying the current hash bit.</param>
+        /// <param name="matron">A <see cref="byte"/> array containing matron genes.</param>
+        /// <param name="sire">A <see cref="byte"/> array containing sire genes.</param>
+        /// <returns>A <see cref="List{T}"/> containing the mutation-adjusted genes of the offspring.</returns>
+        private static List<byte> MutateGenes(BigInteger hash, int hashindex, byte[] matron, byte[] sire)
+        {
             // combine genes from swapped parent genes, introducing mutations
             var outmasks = new List<byte>();
             for (var cnt = 0; cnt < 0x30; cnt++)
@@ -47,14 +82,14 @@ namespace CryptoKitties.Net.Api.GeneScience
                 // Mutate only on dom genes
                 if (cnt % 4 == 0)
                 {
-                    var tmp1 = matronMaskCopy[cnt] & 1;
-                    var tmp2 = sireMaskCopy[cnt] & 1;
+                    var tmp1 = matron[cnt] & 1;
+                    var tmp2 = sire[cnt] & 1;
                     if (tmp1 != tmp2)
                     {
                         var maskedHash = GeneByteMask(hash, hashindex, 3);
-                        hashindex += 3;               
-                        var mask1 = matronMaskCopy[cnt];
-                        var mask2 = sireMaskCopy[cnt];
+                        hashindex += 3;
+                        var mask1 = matron[cnt];
+                        var mask2 = sire[cnt];
                         // mutate only if the two parent dominant genes differ by 1...
                         if (Math.Abs(mask2 - mask1) == 1)
                         {
@@ -89,30 +124,23 @@ namespace CryptoKitties.Net.Api.GeneScience
                 var checkMask = GeneByteMask(hash, hashindex, 1);
                 hashindex += 1;
                 // And add to output accordingly
-                outmasks.Add(checkMask == 0 ? matronMaskCopy[cnt] : sireMaskCopy[cnt]);                
+                outmasks.Add(checkMask == 0 ? matron[cnt] : sire[cnt]);
             }
-            // this is where we will accumulate the calculated child genes
-            var outs = BigInteger.Zero;
-            for (var cnt = 0; cnt < 30; cnt++)
-            {
-                outs = outs.Or(BigInteger.ValueOf(outmasks[cnt] << 5 * cnt));
-            }
-            return outs;
+            return outmasks;
         }
+
+
         /// <summary>
         /// Swaps dominant and recessive parent genes as dictated by <paramref name="hash"/>.
         /// </summary>
         /// <param name="hash">The hash used to provide randomness.</param>
         /// <param name="matron">A <see cref="byte"/> array containing matron genes.</param>
         /// <param name="sire">A <see cref="byte"/> array containing sire genes.</param>
-        /// <param name="matronGenes">Upon return, contains a <see cref="byte"/> array containing swapped matron genes.</param>
-        /// <param name="sireGenes">Upon return, contains a <see cref="byte"/> array containing swapped sire genes.</param>
+        /// <param name="matron">Upon return, contains a <see cref="byte"/> array containing swapped matron genes.</param>
+        /// <param name="sire">Upon return, contains a <see cref="byte"/> array containing swapped sire genes.</param>
         /// <returns>An <see cref="int"/> identifying the index of the next bits from the hash.</returns>
-        private static int SwapParentGenes(BigInteger hash, byte[] matron, out byte[] matronGenes, byte[] sire, out byte[] sireGenes)
-        {
-            // With working copies
-            matronGenes = matron.Clone() as byte[];
-            sireGenes = sire.Clone() as byte[];
+        private static int SwapParentGenes(BigInteger hash, byte[] matron, byte[] sire)
+        {            
             //  note in worst case hashindex wont reach 256 so no need for modulo
             var hashindex = 0;
             // swap dominant/recessive genes according to masked_hash
@@ -121,17 +149,13 @@ namespace CryptoKitties.Net.Api.GeneScience
                 for (var smallcounter = 3; smallcounter > 0; smallcounter--)
                 {
                     var count = 4 * bigcounter + smallcounter;
-                    // Checks out
-                    // System.Diagnostics.Debug.WriteLine($"{bigcounter}    {smallcounter}    {4*bigcounter}     {count}");
-
-                    hashindex = GeneSwapper(hash, hashindex, matronGenes, count, "matr");
-                    hashindex = GeneSwapper(hash, hashindex, sireGenes, count, "sire");
+                    hashindex = GeneSwapper(hash, hashindex, matron, count);
+                    hashindex = GeneSwapper(hash, hashindex, sire, count);
                 }
-            }
-            DumpBytes(matronGenes, "arg1maskscopy");           
-            DumpBytes(sireGenes, "arg2maskscopy");
+            }            
             return hashindex;
         }
+
         /// <summary>
         /// Uses <paramref name="hash"/> at <paramref name="hashindex"/> to determine if dom/res genes should be swapped, and acts accordingly.
         /// </summary>
@@ -140,12 +164,9 @@ namespace CryptoKitties.Net.Api.GeneScience
         /// <param name="target">Target gene bytes.</param>
         /// <param name="targetOffset">Offset within <paramref name="target"/> to swap.</param>
         /// <returns>Next value for <paramref name="hashindex"/>/</returns>
-        private static int GeneSwapper(BigInteger hash, int hashindex, byte[] target, int targetOffset, string which)
+        private static int GeneSwapper(BigInteger hash, int hashindex, byte[] target, int targetOffset)
         {
             var masked_hash = GeneByteMask(hash, hashindex, 2);
-
-            System.Diagnostics.Debug.WriteLine($"{targetOffset} {which} {hashindex} {masked_hash}");
-
             if (masked_hash == 0)
             {
                 var bit = target[targetOffset - 1];
@@ -154,28 +175,7 @@ namespace CryptoKitties.Net.Api.GeneScience
             }
             return hashindex + 2;
         }
-
-        private static byte[] MaskGenes(byte[] genes, int bits = 5, int count = 0x30)
-        {
-            var ret = new List<byte>(count);
-            for (var idx = 0; idx < count; idx++)
-            {
-                ret.Add(GeneByteMask(genes, bits * idx, 5));
-            }
-            return ret.ToArray();
-        }
-        /// <summary>
-        /// Gene bytemask function extracts a gene bit from <paramref name="input"/>.
-        /// </summary>
-        /// <param name="input">The <see cref="BigInteger"/> containing gene data.</param>
-        /// <param name="start">The offset bit</param>
-        /// <param name="numberOfBytes">Number of bits.</param>
-        /// <returns>The masked byte.</returns>
-        [Obsolete("Try to use the BigInt version when possible")]
-        private static byte GeneByteMask(byte[] input, int start, int numberOfBytes)
-        {
-            return GeneByteMask(new BigInteger(input), start, numberOfBytes);
-        }
+      
         /// <summary>
         /// Gene bytemask function extracts a gene bit from <paramref name="input"/>.
         /// </summary>
@@ -217,13 +217,7 @@ namespace CryptoKitties.Net.Api.GeneScience
             return ret.ToArray();
         }
 
-
-        private static void DumpBytes(byte[] bytes, string name = default(string))
-        {
-            var data = bytes.Aggregate(new System.Text.StringBuilder("[ "), (sb, x) => sb.AppendFormat("{0}, ", x), sb => sb.ToString(0, sb.Length - 1) + "]");
-            System.Diagnostics.Debug.WriteLine(string.Format("{0} Bytes=\r\n\t{1}", name ?? "Some", data));
-        }
-
+        
         /* https://github.com/heglex/gene-science
          *  These examples are from Tx 0xa7b0ac87684771f6d6204a09b5a0bf0b97f6adf61b78138e8fd264828e36b956
 

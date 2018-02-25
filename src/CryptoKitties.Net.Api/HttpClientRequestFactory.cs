@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace CryptoKitties.Net.Api.RestClient
+namespace CryptoKitties.Net.Api
 {
     public class HttpClientRequestFactory
         : IHttpClientRequestFactory
