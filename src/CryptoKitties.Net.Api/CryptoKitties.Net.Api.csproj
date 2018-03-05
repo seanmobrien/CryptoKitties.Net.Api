@@ -7,7 +7,7 @@
     <ProjectGuid>{B6157744-6442-4F61-B297-23ECD4D027B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CryptoKitties.Net.Api</RootNamespace>
+    <RootNamespace>CryptoKitties.Net</RootNamespace>
     <AssemblyName>CryptoKitties.Net.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,50 +49,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\RestClient\IUserService.cs" />
+    <Compile Include="Api\RestClient\UserService.cs" />
     <Compile Include="Blockchain\BlockchainService.cs" />
     <Compile Include="GeneScience\CryptoUtility.cs" />
     <Compile Include="GeneScience\GeneScienceService.cs" />
     <Compile Include="GeneScience\GeneScienceUtilities.cs" />
-    <Compile Include="Models\Auction.cs" />
-    <Compile Include="Models\BlockSummary.cs" />
-    <Compile Include="Models\CattributeInfo.cs" />
-    <Compile Include="Models\CattributeType.cs" />
-    <Compile Include="Models\EnhancedCattributeInfo.cs" />
-    <Compile Include="Models\Kitty.cs" />
-    <Compile Include="Models\KittyBase.cs" />
-    <Compile Include="Models\RelatedKitty.cs" />
+    <Compile Include="Api\Models\Auction.cs" />
+    <Compile Include="Api\Models\BlockSummary.cs" />
+    <Compile Include="Api\Models\CattributeInfo.cs" />
+    <Compile Include="Api\Models\CattributeType.cs" />
+    <Compile Include="Api\Models\EnhancedCattributeInfo.cs" />
+    <Compile Include="Api\Models\Kitty.cs" />
+    <Compile Include="Api\Models\KittyBase.cs" />
+    <Compile Include="Api\Models\RelatedKitty.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RestClient\IAuctionService.cs" />
-    <Compile Include="RestClient\ICattributeService.cs" />
+    <Compile Include="Api\RestClient\IAuctionService.cs" />
+    <Compile Include="Api\RestClient\ICattributeService.cs" />
     <Compile Include="IHttpClientRequestFactory.cs" />
-    <Compile Include="RestClient\IKittyService.cs" />
-    <Compile Include="RestClient\CattributeService.cs" />
-    <Compile Include="RestClient\KittyService.cs" />
-    <Compile Include="RestClient\Messages\AuctionQueryResponseMessage.cs" />
-    <Compile Include="RestClient\Messages\CattributeQueryRequestMessage.cs" />
-    <Compile Include="RestClient\Messages\KittyQueryResponseMessage.cs" />
-    <Compile Include="RestClient\Messages\KittyQueryRequestMessage.cs" />
-    <Compile Include="RestClient\Messages\QueryRequestMessageBase.cs" />
-    <Compile Include="RestClient\Messages\QueryResponseMessageBase{T}.cs" />
-    <Compile Include="Models\AuctionStatusType.cs" />
-    <Compile Include="Models\AuctionType.cs" />
-    <Compile Include="Models\CooldownIndexType.cs" />
-    <Compile Include="Models\KittyStatus.cs" />
-    <Compile Include="Models\KittySummary.cs" />
-    <Compile Include="Models\Profile.cs" />
-    <Compile Include="Models\PurrInfo.cs" />
-    <Compile Include="Models\WatchlistInfo.cs" />
+    <Compile Include="Api\RestClient\IKittyService.cs" />
+    <Compile Include="Api\RestClient\CattributeService.cs" />
+    <Compile Include="Api\RestClient\KittyService.cs" />
+    <Compile Include="Api\RestClient\Messages\AuctionQueryResponseMessage.cs" />
+    <Compile Include="Api\RestClient\Messages\CattributeQueryRequestMessage.cs" />
+    <Compile Include="Api\RestClient\Messages\KittyQueryResponseMessage.cs" />
+    <Compile Include="Api\RestClient\Messages\KittyQueryRequestMessage.cs" />
+    <Compile Include="Api\RestClient\Messages\QueryRequestMessageBase.cs" />
+    <Compile Include="Api\RestClient\Messages\QueryResponseMessageBase{T}.cs" />
+    <Compile Include="Api\Models\AuctionStatusType.cs" />
+    <Compile Include="Api\Models\AuctionType.cs" />
+    <Compile Include="Api\Models\CooldownIndexType.cs" />
+    <Compile Include="Api\Models\KittyStatus.cs" />
+    <Compile Include="Api\Models\KittySummary.cs" />
+    <Compile Include="Api\Models\Profile.cs" />
+    <Compile Include="Api\Models\PurrInfo.cs" />
+    <Compile Include="Api\Models\WatchlistInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RestClient\AuctionService.cs" />
+    <Compile Include="Api\RestClient\AuctionService.cs" />
     <Compile Include="HttpClientRequestFactory.cs" />
-    <Compile Include="RestClient\Messages\AuctionQueryRequestMessage.cs" />
-    <Compile Include="RestClient\Messages\KittySortType.cs" />
-    <Compile Include="RestClient\Messages\RequestMessageBase.cs" />
-    <Compile Include="RestClient\ServicesExtensions.cs" />
+    <Compile Include="Api\RestClient\Messages\AuctionQueryRequestMessage.cs" />
+    <Compile Include="Api\RestClient\Messages\KittySortType.cs" />
+    <Compile Include="Api\RestClient\Messages\RequestMessageBase.cs" />
+    <Compile Include="Api\RestClient\ServicesExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

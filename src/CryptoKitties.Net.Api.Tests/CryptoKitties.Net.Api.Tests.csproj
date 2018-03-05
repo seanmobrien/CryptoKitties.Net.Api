@@ -57,6 +57,7 @@
     <Compile Include="Integration\CattrbuteServiceIntegrationTests.cs" />
     <Compile Include="Integration\KittyServiceIntegrationTests.cs" />
     <Compile Include="Integration\AuctionServiceIntegrationTests.cs" />
+    <Compile Include="Integration\UserServiceIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\GeneScience\GeneScienceServiceTests.cs" />
     <Compile Include="Unit\GeneScience\GeneScienceUtilitiesTests.cs" />
