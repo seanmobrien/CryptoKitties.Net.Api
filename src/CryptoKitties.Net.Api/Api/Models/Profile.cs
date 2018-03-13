@@ -23,5 +23,10 @@ namespace CryptoKitties.Net.Api.Models
         /// </summary>
         [DataMember(Name = "image")]
         public long Image { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Address?.GetHashCode() ?? 0;
+        }
     }
 }

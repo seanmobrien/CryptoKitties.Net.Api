@@ -21,7 +21,7 @@ namespace CryptoKitties.Net.Api.RestClient
         // <inheritdoc cref="IAuctionService.GetAuctions"/>
         public async Task<AuctionQueryResponseMessage> GetAuctions(AuctionQueryRequestMessage request)
         {
-            return await _requestFactory.ServiceGet<AuctionQueryResponseMessage>(MethodUrl, request);
+            return await _requestFactory.ServiceGet<AuctionQueryResponseMessage>(ServicesExtensions.KittyApiRootUrl + MethodUrl, request);
         }
         /// <summary>
         /// Relative url of auction query method

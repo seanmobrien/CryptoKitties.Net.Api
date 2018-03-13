@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.RestClient.Messages
 {
@@ -35,6 +36,11 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         protected void SetBoolValue(IDictionary<string, string> target, string name, bool? value)
         {
             if (!value.HasValue) return;
+            SetValue(target, name, value.ToString(), x => x.ToLowerInvariant());
+        }
+        protected void SetBigIntValue(IDictionary<string, string> target, string name, BigInteger value)
+        {
+            if (value == null) return;
             SetValue(target, name, value.ToString(), x => x.ToLowerInvariant());
         }
 

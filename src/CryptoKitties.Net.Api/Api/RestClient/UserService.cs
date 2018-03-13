@@ -25,7 +25,7 @@ namespace CryptoKitties.Net.Api.RestClient
         public async Task<Profile> GetUser(string walletAddress)
         {
             Guard.NotWhitespace(walletAddress, nameof(walletAddress));
-            var url = new StringBuilder(MethodUrl).Append(walletAddress);
+            var url = new StringBuilder(ServicesExtensions.KittyApiRootUrl).Append(MethodUrl).Append(walletAddress);
             return await _requestFactory.ServiceGet<Profile>(url.ToString());
         }
         /// <summary>

@@ -4,10 +4,11 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using CryptoKitties.Net.Api;
 using CryptoKitties.Net.Api.RestClient.Messages;
 using Newtonsoft.Json;
 
-namespace CryptoKitties.Net.Api.RestClient
+namespace CryptoKitties.Net
 {
     using Res = Properties.Resources;
     /// <summary>
@@ -30,8 +31,7 @@ namespace CryptoKitties.Net.Api.RestClient
             IDictionary<string, string> queryString = default(IDictionary<string, string>))
             where TResult : class
         {
-            if  (query == null) { throw new ArgumentNullException(nameof(query)); }
-            queryString = query.ToQueryDictionary(queryString);
+            queryString = query?.ToQueryDictionary(queryString) ?? throw new ArgumentNullException(nameof(query));
             return await ServiceGet<TResult>(instance, uri, queryString);
         }
         /// <summary>
@@ -49,7 +49,7 @@ namespace CryptoKitties.Net.Api.RestClient
             where TResult : class
         {
             if (instance == null) throw new ArgumentNullException(nameof(instance));
-            var req = instance.CreateRequest(ApiRootUrl + uri, queryString);
+            var req = instance.CreateRequest(uri, queryString);
             req.Method = "GET";
 
             try
@@ -88,6 +88,6 @@ namespace CryptoKitties.Net.Api.RestClient
         /// <summary>
         /// Root cryptokitty url.
         /// </summary>
-        public const string ApiRootUrl = "https://api.cryptokitties.co/";
+        public const string KittyApiRootUrl = "https://api.cryptokitties.co/";
     }
 }

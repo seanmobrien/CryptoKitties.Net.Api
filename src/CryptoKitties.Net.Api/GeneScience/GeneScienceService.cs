@@ -1,7 +1,7 @@
-﻿using CryptoKitties.Net.Api.Blockchain;
-using Org.BouncyCastle.Math;
+﻿using Org.BouncyCastle.Math;
 using System;
 using System.Threading.Tasks;
+using CryptoKitties.Net.Blockchain;
 
 namespace CryptoKitties.Net.Api.GeneScience
 {

@@ -22,7 +22,7 @@ namespace CryptoKitties.Net.Api.RestClient
         /// <inheritdoc cref="ICattributeService.GetCattributes"/>
         public async Task<IEnumerable<CattributeInfo>> GetCattributes(CattributeQueryRequestMessage request)
         {
-            return await _requestFactory.ServiceGet<CattributeInfo[]>(MethodUrl, request);
+            return await _requestFactory.ServiceGet<CattributeInfo[]>(ServicesExtensions.KittyApiRootUrl + MethodUrl, request);
         }
         /// <summary>
         /// Relative url of auction query method

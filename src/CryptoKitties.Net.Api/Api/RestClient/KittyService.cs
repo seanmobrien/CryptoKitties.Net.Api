@@ -18,12 +18,12 @@ namespace CryptoKitties.Net.Api.RestClient
 
         public async Task<KittyQueryResponseMessage> GetKitties(KittyQueryRequestMessage request)
         {
-            return await _requestFactory.ServiceGet<KittyQueryResponseMessage>(QueryMethodUrl, request);
+            return await _requestFactory.ServiceGet<KittyQueryResponseMessage>(ServicesExtensions.KittyApiRootUrl + QueryMethodUrl, request);
         }
 
         public async Task<Kitty> GetKitty(long id)
         {
-            return await _requestFactory.ServiceGet<Kitty>($"{QueryMethodUrl}/{id}");
+            return await _requestFactory.ServiceGet<Kitty>($"{ServicesExtensions.KittyApiRootUrl}{QueryMethodUrl}/{id}");
         }
 
         /// <summary>
