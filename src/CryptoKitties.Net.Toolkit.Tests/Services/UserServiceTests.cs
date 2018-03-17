@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CryptoKitties.Net.Api;
 using CryptoKitties.Net.Api.Models;
-using CryptoKitties.Net.Toolkit.Services;
+using CryptoKitties.Net.Api.RestClient;
+using CryptoKitties.Net.Blockchain.RestClient;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NMock;
+using IUserService = CryptoKitties.Net.Toolkit.Services.IUserService;
+using UserService = CryptoKitties.Net.Toolkit.Services.UserService;
 
 namespace CryptoKitties.Net.Toolkit.Tests.Services
 {
     using IRestUserService = Api.RestClient.IUserService;
+    using RestUserService = Api.RestClient.UserService;
 
 
     [TestClass]
@@ -19,7 +24,7 @@ namespace CryptoKitties.Net.Toolkit.Tests.Services
 
         public TestContext TestContext { get; set; }
 
-        private const string ValidAddress = "asd";
+        private const string ValidAddress = "0x5fa4879f2800b176d2f6d861be878aadfd1d5452";
 
         [TestInitialize]
         public void OnTestInitialize()
@@ -34,7 +39,9 @@ namespace CryptoKitties.Net.Toolkit.Tests.Services
 
         IUserService CreateTarget()
         {
-            return new UserService(RestUserService.MockObject);
+            var http = new HttpClientRequestFactory();
+
+            return new UserService(new RestUserService(http), new EtherscanApiClient(new HttpClientRequestFactory()));
         }
 
 
@@ -45,7 +52,17 @@ namespace CryptoKitties.Net.Toolkit.Tests.Services
                 .WillReturn(Task.FromResult(new Profile { Address = ValidAddress }));
 
             var user = CreateTarget().LoadUser(ValidAddress, false).Result;
+            Assert.IsNotNull(user);
         }
 
+        [TestMethod]
+        public void GetProfile_Tx_ReturnsExpected()
+        {
+            RestUserService.Expects.One.Method(x => x.GetUser(ValidAddress))
+                .WillReturn(Task.FromResult(new Profile { Address = ValidAddress }));
+
+            var user = CreateTarget().LoadUser(ValidAddress, true).Result;
+            Assert.IsNotNull(user);
+        }
     }
 }

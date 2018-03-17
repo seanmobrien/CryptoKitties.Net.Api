@@ -13,7 +13,7 @@ using CryptoKitties.Net.Blockchain.RestClient.Messages;
 namespace CryptoKitties.Net.Blockchain.RestClient
 {
     using Settings = Properties.Settings;
-    public class EtherscanApiClient
+    public class EtherscanApiClient : IEtherscanApiClient
     {
         public EtherscanApiClient(
             IHttpClientRequestFactory requestFactory = default(IHttpClientRequestFactory)
@@ -34,7 +34,7 @@ namespace CryptoKitties.Net.Blockchain.RestClient
 
         public virtual async Task<EtherscanResponseMessage<IEnumerable<Transaction>>> GetTransactions(TransactionQueryRequestMessage request)
         {
-            return await RequestFactory.ServiceGet<EtherscanResponseMessage<IEnumerable<Transaction>>>(ApiUrl, request);
+            return await RequestFactory.ServiceGet<EtherscanResponseMessage<IEnumerable<Transaction>>>(ApiUrl, Setup(request));
         }
 
 

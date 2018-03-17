@@ -6,6 +6,6 @@ namespace CryptoKitties.Net.Toolkit.Services
     public interface IUserService
     {
         Task<User> LoadUser(string walletAddress, bool loadTransactions = true);
-        Task LoadTransactions(User user);
+        Task<KittyTransactionState> LoadTransactions(string walletAddress);
     }
 }

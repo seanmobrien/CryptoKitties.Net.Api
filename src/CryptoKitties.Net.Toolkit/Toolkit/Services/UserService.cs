@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using CryptoKitties.Net.Blockchain;
-using Nethereum.RPC.Eth.DTOs;
+using CryptoKitties.Net.Blockchain.Models;
+using CryptoKitties.Net.Blockchain.RestClient;
+using CryptoKitties.Net.Blockchain.RestClient.Messages;
+using CryptoKitties.Net.Exceptions;
+using Newtonsoft.Json;
 
 namespace CryptoKitties.Net.Toolkit.Services
 {
@@ -11,27 +18,71 @@ namespace CryptoKitties.Net.Toolkit.Services
     public class UserService : IUserService
     {
         public UserService(
-            IRestUserService restUserService
+            IRestUserService restUserService,
+            IEtherscanApiClient etherscanApi
             )
         {
             Guard.NotNull(restUserService, nameof(restUserService));
             _restService = restUserService;
+            _etherscanApi = etherscanApi;
         }
 
+        private readonly IEtherscanApiClient _etherscanApi;
         private readonly IRestUserService _restService;
 
         public async Task<User> LoadUser(string walletAddress, bool loadTransactions = true)
         {
-            throw new NotImplementedException();
+            var userTask = _restService.GetUser(walletAddress);
+            var txTask = loadTransactions ? LoadTransactions(walletAddress) : Task.FromResult(default(KittyTransactionState));
 
+            var profile = await userTask;
+            if (profile == null) return null;
+            var user = new User(profile);
 
-            
+            var trans = await txTask;
 
+            Debug.WriteLine($"TxResult: {JsonConvert.SerializeObject(trans)}");
+
+            return user;
         }
 
-        public async Task LoadTransactions(User user)
+        public async Task<KittyTransactionState> LoadTransactions(string walletAddress)
         {
-            await Task.Run(() => { });
+            var internalTxTask = _etherscanApi.GetTransactions(new InternalTransactionQueryRequestMessage(walletAddress));
+            // note: need to get external for outgiong transfers
+            var response = await internalTxTask;
+            if (!response.IsSuccess()) {  throw new EtherscanApiException(response); }
+            return response.Result.GetKittyTransactions();
+        }
+
+
+
+
+        
+
+
+    }
+    public class KittyTransactionState
+    {
+        public KittyTransactionState(IEnumerable<IGrouping<string, Transaction>> input)
+        {
+            Transactions = input.ToList();
+            var blocks = Transactions.SelectMany(x => x).Select(x => x.BlockNumber).AsQueryable();
+            MaxBlock = blocks.Max();
+            MinBlock = blocks.Min();
+        }
+
+        public IList<IGrouping<string, Transaction>> Transactions { get; }
+        public IEnumerable<Transaction> Sales => GetTransactions(Globals.Contracts.SalesAuction);
+        public IEnumerable<Transaction> Sires => GetTransactions(Globals.Contracts.SiringAuction);
+        public long MaxBlock { get; }
+        public long MinBlock { get; }
+
+
+
+        private IEnumerable<Transaction> GetTransactions(string key)
+        {
+            return ((IEnumerable<Transaction>)Transactions.FirstOrDefault(y => y.Key == key)) ?? new Transaction[0];
         }
     }
 }

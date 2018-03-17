@@ -95,6 +95,7 @@
     <Compile Include="Blockchain\IWeb3Client.cs" />
     <Compile Include="Blockchain\Models\Transaction.cs" />
     <Compile Include="Blockchain\RestClient\EtherscanApiClient.cs" />
+    <Compile Include="Blockchain\RestClient\IEtherscanApiClient.cs" />
     <Compile Include="Blockchain\RestClient\Messages\EtherscanApiRequestMessageBase.cs" />
     <Compile Include="Blockchain\RestClient\Messages\EtherscanResponseMessage.cs" />
     <Compile Include="Blockchain\RestClient\Messages\QueryRequestMessageBase.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Api\Models\Kitty.cs" />
     <Compile Include="Api\Models\KittyBase.cs" />
     <Compile Include="Api\Models\RelatedKitty.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
