@@ -16,6 +16,12 @@ namespace CryptoKitties.Net.Blockchain.RestClient.Messages
             Action = action;
         }
 
+        protected EtherscanApiRequestMessageBase(EtherscanApiRequestMessageBase copy)
+            : this(copy.Module, copy.Action)
+        {
+            _apiKey = copy._apiKey;
+        }
+
         public EtherscanApiRequestMessageBase ApiKey(string key)
         {
             _apiKey = key;
@@ -38,6 +44,8 @@ namespace CryptoKitties.Net.Blockchain.RestClient.Messages
         internal static class Modules
         {
             public const string Account = "account";
+            public const string Logs = "logs";
+            public const string Proxy = "proxy";
         }
     }
 }

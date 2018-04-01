@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Org.BouncyCastle.Crypto.Digests;
+using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.GeneScience
 {
@@ -11,6 +14,14 @@ namespace CryptoKitties.Net.Api.GeneScience
     /// </summary>
     public static class CryptoUtility
     {
+
+        public static string Sha3Keccack(this string value)
+        {
+            var data = Encoding.ASCII.GetBytes(value);
+            var hashed = new BigInteger(1, Sha3Keccack(data));
+            return hashed.ToString(16);
+        }
+
         /// <summary>
         /// Generates a SHA-3 hash of <paramref name="value"/>.
         /// </summary>

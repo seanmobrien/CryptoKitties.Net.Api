@@ -16,6 +16,13 @@ namespace CryptoKitties.Net.Blockchain.RestClient.Messages
             
         }
 
+        protected QueryRequestMessageBase(QueryRequestMessageBase copy)
+            : base(copy)
+        {
+            Page = copy.Page;
+            Count = copy.Count;
+            Order = copy.Order;
+        }
         /// <summary>
         /// Page of records
         /// </summary>

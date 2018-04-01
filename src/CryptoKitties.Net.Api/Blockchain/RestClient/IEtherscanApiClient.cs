@@ -8,5 +8,7 @@ namespace CryptoKitties.Net.Blockchain.RestClient
     public interface IEtherscanApiClient
     {
         Task<EtherscanResponseMessage<IEnumerable<Transaction>>> GetTransactions(TransactionQueryRequestMessage request);
+        Task<EtherscanResponseMessage<IList<LogRecord>>> GetLogs(LogQueryRequestMessage request);
+        Task<EtherscanResponseMessage<string>> Call(CallRequestMessage request);
     }
 }
