@@ -33,20 +33,20 @@ namespace CryptoKitties.Net.Toolkit.Services
         public async Task<User> LoadUser(string walletAddress, bool loadTransactions = true)
         {
             var userTask = _restService.GetUser(walletAddress);
-            var txTask = loadTransactions ? LoadTransactions(walletAddress) : Task.FromResult(default(KittyTransactionState));
+            var txTask = loadTransactions ? LoadTransactions(walletAddress) : Task.FromResult(default(IEnumerable<IGrouping<string, Transaction>>));
 
             var profile = await userTask;
             if (profile == null) return null;
-            var user = new User(profile);
+            var user = new User(profile)
+            {
+                InternalTranactions = (await txTask).ToDictionary(x => x.Key, x => x.ToArray())
+            };
 
-            var trans = await txTask;
-
-            Debug.WriteLine($"TxResult: {JsonConvert.SerializeObject(trans)}");
 
             return user;
         }
 
-        public async Task<KittyTransactionState> LoadTransactions(string walletAddress)
+        public async Task<IEnumerable<IGrouping<string, Transaction>>> LoadTransactions(string walletAddress)
         {
             var internalTxTask = _etherscanApi.GetTransactions(new InternalTransactionQueryRequestMessage(walletAddress));
             // note: need to get external for outgiong transfers
@@ -73,8 +73,8 @@ namespace CryptoKitties.Net.Toolkit.Services
         }
 
         public IList<IGrouping<string, Transaction>> Transactions { get; }
-        public IEnumerable<Transaction> Sales => GetTransactions(Globals.Contracts.SalesAuction);
-        public IEnumerable<Transaction> Sires => GetTransactions(Globals.Contracts.SiringAuction);
+        public IEnumerable<Transaction> Sales => GetTransactions(Globals.Contracts.Address.SalesAuction);
+        public IEnumerable<Transaction> Sires => GetTransactions(Globals.Contracts.Address.SiringAuction);
         public long MaxBlock { get; }
         public long MinBlock { get; }
 

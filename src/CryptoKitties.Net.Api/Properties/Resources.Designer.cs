@@ -61,11 +61,56 @@ namespace CryptoKitties.Net.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unexpected data length.
+        /// </summary>
+        internal static string ContractCallResultReader_ContractCallResultReader_Unexpected_data_length {
+            get {
+                return ResourceManager.GetString("ContractCallResultReader_ContractCallResultReader_Unexpected_data_length", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A fatal contract failure has occurred - exiting..
+        /// </summary>
+        internal static string FatalContractFailure {
+            get {
+                return ResourceManager.GetString("FatalContractFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid call response detected..
+        /// </summary>
+        internal static string InvalidCallResponse {
+            get {
+                return ResourceManager.GetString("InvalidCallResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server has returned a null reseponse..
         /// </summary>
         internal static string NullResponseDetected {
             get {
                 return ResourceManager.GetString("NullResponseDetected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Out of range..
+        /// </summary>
+        internal static string OurOfRange {
+            get {
+                return ResourceManager.GetString("OurOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown or unsupported kitty contractType..
+        /// </summary>
+        internal static string UnsupportedKittyContractValue {
+            get {
+                return ResourceManager.GetString("UnsupportedKittyContractValue", resourceCulture);
             }
         }
     }

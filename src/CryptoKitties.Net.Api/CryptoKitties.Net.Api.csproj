@@ -37,44 +37,44 @@
     <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.ABI, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.ABI.2.3.1\lib\net451\Nethereum.ABI.dll</HintPath>
+    <Reference Include="Nethereum.ABI, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.ABI.2.4.0\lib\net451\Nethereum.ABI.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Accounts, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Accounts.2.3.1\lib\net451\Nethereum.Accounts.dll</HintPath>
+    <Reference Include="Nethereum.Accounts, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Accounts.2.4.0\lib\net451\Nethereum.Accounts.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Contracts, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Contracts.2.3.1\lib\net451\Nethereum.Contracts.dll</HintPath>
+    <Reference Include="Nethereum.Contracts, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Contracts.2.4.0\lib\net451\Nethereum.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Hex, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Hex.2.3.1\lib\net451\Nethereum.Hex.dll</HintPath>
+    <Reference Include="Nethereum.Hex, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Hex.2.4.0\lib\net451\Nethereum.Hex.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.JsonRpc.Client, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.JsonRpc.Client.2.3.1\lib\net451\Nethereum.JsonRpc.Client.dll</HintPath>
+    <Reference Include="Nethereum.JsonRpc.Client, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.JsonRpc.Client.2.4.0\lib\net451\Nethereum.JsonRpc.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.JsonRpc.RpcClient, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.JsonRpc.RpcClient.2.3.1\lib\net451\Nethereum.JsonRpc.RpcClient.dll</HintPath>
+    <Reference Include="Nethereum.JsonRpc.RpcClient, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.JsonRpc.RpcClient.2.4.0\lib\net451\Nethereum.JsonRpc.RpcClient.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.KeyStore, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.KeyStore.2.3.1\lib\net451\Nethereum.KeyStore.dll</HintPath>
+    <Reference Include="Nethereum.KeyStore, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.KeyStore.2.4.0\lib\net451\Nethereum.KeyStore.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.RLP, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.RLP.2.3.1\lib\net451\Nethereum.RLP.dll</HintPath>
+    <Reference Include="Nethereum.RLP, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.RLP.2.4.0\lib\net451\Nethereum.RLP.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.RPC, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.RPC.2.3.1\lib\net451\Nethereum.RPC.dll</HintPath>
+    <Reference Include="Nethereum.RPC, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.RPC.2.4.0\lib\net451\Nethereum.RPC.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Signer, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Signer.2.3.1\lib\net451\Nethereum.Signer.dll</HintPath>
+    <Reference Include="Nethereum.Signer, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Signer.2.4.0\lib\net451\Nethereum.Signer.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Util, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Util.2.3.1\lib\net451\Nethereum.Util.dll</HintPath>
+    <Reference Include="Nethereum.Util, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Util.2.4.0\lib\net451\Nethereum.Util.dll</HintPath>
     </Reference>
-    <Reference Include="Nethereum.Web3, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nethereum.Web3.2.3.1\lib\net451\Nethereum.Web3.dll</HintPath>
+    <Reference Include="Nethereum.Web3, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\src\packages\Nethereum.Web3.2.4.0\lib\net451\Nethereum.Web3.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\src\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -89,17 +89,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Models\ModelExtensions.cs" />
     <Compile Include="Api\RestClient\IUserService.cs" />
     <Compile Include="Api\RestClient\UserService.cs" />
+    <Compile Include="Blockchain\BlockchainExtensionMethods.cs" />
+    <Compile Include="Blockchain\ContractCallDataBuilder.cs" />
+    <Compile Include="Blockchain\ContractCallResultReader.cs" />
     <Compile Include="Blockchain\IBlockchainService.cs" />
     <Compile Include="Blockchain\IWeb3Client.cs" />
+    <Compile Include="Blockchain\KittyEventType.cs" />
+    <Compile Include="Blockchain\Models\Contracts\AuctionSuccessfulEventData.cs" />
+    <Compile Include="Blockchain\Models\Contracts\KittyResponseModel.cs" />
     <Compile Include="Blockchain\Models\Transaction.cs" />
     <Compile Include="Blockchain\RestClient\EtherscanApiClient.cs" />
     <Compile Include="Blockchain\RestClient\IEtherscanApiClient.cs" />
+    <Compile Include="Blockchain\RestClient\Messages\CallRequestMessage.cs" />
     <Compile Include="Blockchain\RestClient\Messages\EtherscanApiRequestMessageBase.cs" />
     <Compile Include="Blockchain\RestClient\Messages\EtherscanResponseMessage.cs" />
+    <Compile Include="Blockchain\RestClient\Messages\LogQueryRequestMessage.cs" />
+    <Compile Include="Blockchain\RestClient\Messages\LogRecord.cs" />
     <Compile Include="Blockchain\RestClient\Messages\QueryRequestMessageBase.cs" />
     <Compile Include="Blockchain\RestClient\Messages\TransactionQueryRequestMessage.cs" />
+    <Compile Include="Blockchain\CryptoKittyContractType.cs" />
+    <Compile Include="Blockchain\Web3Client.cs" />
+    <Compile Include="Exceptions\EtherscanApiException.cs" />
     <Compile Include="GeneScience\CryptoUtility.cs" />
     <Compile Include="GeneScience\GeneScienceService.cs" />
     <Compile Include="GeneScience\GeneScienceUtilities.cs" />
@@ -111,8 +124,18 @@
     <Compile Include="Api\Models\Kitty.cs" />
     <Compile Include="Api\Models\KittyBase.cs" />
     <Compile Include="Api\Models\RelatedKitty.cs" />
+    <Compile Include="GeneScience\GeneSplicer.cs" />
+    <Compile Include="GeneScience\KaiEncoder.cs" />
+    <Compile Include="GeneScience\Models\CattributeCategoryData.cs" />
+    <Compile Include="GeneScience\Models\CattributeData.cs" />
+    <Compile Include="GeneScience\Models\GeneSet.cs" />
+    <Compile Include="Globals.CattributeCategories.cs" />
+    <Compile Include="Globals.CattributeNames.cs" />
+    <Compile Include="Globals.Cattributes.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Guard.cs" />
+    <Compile Include="Merkator.Tools\ArrayHelpers.cs" />
+    <Compile Include="Merkator.Tools\Base58Encoding.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,6 +182,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Blockchain\ABI\KittyCore.json" />
+    <EmbeddedResource Include="Blockchain\ABI\SalesAuction.json" />
+    <EmbeddedResource Include="Blockchain\ABI\SiringAuction.json" />
+    <Compile Include="Blockchain\ContractCallDataBuilder.CallParameters.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

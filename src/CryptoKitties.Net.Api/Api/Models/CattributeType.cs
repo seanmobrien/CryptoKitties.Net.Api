@@ -21,7 +21,7 @@ namespace CryptoKitties.Net.Api.Models
         /// Eye Color
         /// </summary>
         [EnumMember(Value = "coloreyes")]
-        ColorEyes,
+        EyeColor,
         /// <summary>
         /// Primary Color
         /// </summary>
@@ -31,17 +31,17 @@ namespace CryptoKitties.Net.Api.Models
         /// Secondary Color
         /// </summary>
         [EnumMember(Value = "colorsecondary")]
-        ColorSecondary,
+        ColorHighlight,
         /// <summary>
         /// Tertiary Color
         /// </summary>
         [EnumMember(Value = "colortertiary")]
-        ColorTertiary,
+        ColorAccent,
         /// <summary>
         /// Eye type
         /// </summary>
         [EnumMember(Value = "eyes")]
-        Eyes,
+        EyeShape,
         /// <summary>
         /// Pattern
         /// </summary>
@@ -56,6 +56,16 @@ namespace CryptoKitties.Net.Api.Models
         /// Wild
         /// </summary>
         [EnumMember(Value = "wild")]
-        Wild 
+        Wild,
+        /// <summary>
+        /// Wild
+        /// </summary>
+        [EnumMember(Value = "secret")]
+        Secret,
+        /// <summary>
+        /// Wild
+        /// </summary>
+        [EnumMember(Value = "mystery")]
+        Mystery
     }
 }

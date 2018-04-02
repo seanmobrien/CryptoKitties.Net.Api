@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Merkator.Tools;
 using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.GeneScience
@@ -10,6 +12,52 @@ namespace CryptoKitties.Net.Api.GeneScience
     /// </summary>
     public static class GeneScienceUtilities
     {
+        public static string ComputeKai(BigInteger instance)
+        {
+            
+
+            var builder = new StringBuilder();
+            const int count = 0x30;
+            for (var idx = count - 1; idx >= 0; idx--)
+            {
+                var bits = GeneByteMask(instance, 5 * idx, 5);
+                
+
+                var part = Base58Encoding.Encode(new[] {bits});
+                builder.Append(part);
+                if (idx % 4 == 0)
+                {
+                    builder.Append(" ");
+                }
+            }
+            return builder.ToString();
+        }
+
+        public static string ComputeKai2(BigInteger instance)
+        {
+            var builder = new StringBuilder();
+            const int count = 0x30;
+            for (var idx = count - 1; idx > 0; idx--)
+            {
+                var bits = GeneByteMask(instance, 5 * idx, 5);
+
+
+                var part = Base58Encoding.Encode(new[] { bits });
+                builder.Append(part);
+                if (idx % 4 == 0)
+                {
+                    builder.Append(" ");
+                }
+            }
+            // see what skipping the final bit gets us
+            var finalBits = GeneByteMask(instance, 0, 4);
+            builder.Append(Base58Encoding.Encode(new[] {finalBits}));
+            return builder.ToString();
+        }
+
+        private const string KaiAlphabet = "123456789abcdefghijkmnopqrstuvwx";
+        private const int KaiLength = 32;
+
         /// <summary>
         /// Raw genescience algorithm as tranlated by https://github.com/heglex/gene-science
         /// </summary>

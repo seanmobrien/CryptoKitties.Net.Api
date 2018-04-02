@@ -32,12 +32,19 @@ namespace CryptoKitties.Net.Blockchain.RestClient
         }
         protected string ApiUrl => Settings.Default.EtherscanApiUri;
 
+        public virtual async Task<EtherscanResponseMessage<IList<LogRecord>>> GetLogs(LogQueryRequestMessage request)
+        {
+            return await RequestFactory.ServiceGet<EtherscanResponseMessage<IList<LogRecord>>>(ApiUrl, Setup(request));
+        }
         public virtual async Task<EtherscanResponseMessage<IEnumerable<Transaction>>> GetTransactions(TransactionQueryRequestMessage request)
         {
             return await RequestFactory.ServiceGet<EtherscanResponseMessage<IEnumerable<Transaction>>>(ApiUrl, Setup(request));
         }
-
-
+        public virtual async Task<EtherscanResponseMessage<string>> Call(CallRequestMessage request)
+        {
+            return await RequestFactory.ServiceGet<EtherscanResponseMessage<string>>(ApiUrl, Setup(request));
+        }
+        
 
 
         protected TRequestMessage Setup<TRequestMessage>()

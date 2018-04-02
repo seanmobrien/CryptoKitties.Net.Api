@@ -1,7 +1,12 @@
-﻿namespace CryptoKitties.Net.Toolkit.Models
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using CryptoKitties.Net.Blockchain.Models;
+
+namespace CryptoKitties.Net.Toolkit.Models
 {
     using Api.Models;
 
+    [DataContract]
     public class User
         : Profile
     {
@@ -19,7 +24,8 @@
                 Image = profile.Image;
             }
         }
-
+        [DataMember]
+        public Dictionary<string, Transaction[]> InternalTranactions { get; set; }
 
     }
 }

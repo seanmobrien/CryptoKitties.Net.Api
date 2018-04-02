@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using CryptoKitties.Net.GeneScience;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Math;
 
 namespace CryptoKitties.Net.Api.Tests.Unit.Unit.GeneScience
@@ -7,6 +9,14 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Unit.GeneScience
     public class GeneScienceUtilitiesTests
     {
         public TestContext TestContext { get; set; }
+
+        [TestMethod]
+        public void KnownGene_ToKai_ReturnsExpected()
+        {
+            var real = new BigInteger("63129314a7185c642d2310ca0310026acc620084298e339ca65394373d76", 16);
+            var target = new GeneSplicer(real);
+            TestContext.WriteLine($"Kai: {target.Kai}\r\nCattributes:{JsonConvert.SerializeObject(target.KnownCattributes)}"); 
+        }
 
 
 
