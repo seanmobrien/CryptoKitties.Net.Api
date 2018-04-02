@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using CryptoKitties.Net.Api.Models;
 
 namespace CryptoKitties.Net.GeneScience.Models
@@ -13,6 +14,7 @@ namespace CryptoKitties.Net.GeneScience.Models
         /// <summary>
         /// Initializes new <see cref="GeneSet"/>
         /// </summary>
+        /// <param name="type"></param>
         /// <param name="genes"></param>
         public GeneSet(CattributeType type, IEnumerable<CattributeData> genes)
         {
@@ -20,29 +22,40 @@ namespace CryptoKitties.Net.GeneScience.Models
             Type = type;
             if (Genes.Length != 4) throw new ArgumentOutOfRangeException(nameof(genes), genes, "Incorrect number of cattribues");
         }
+
+        public GeneSet()
+        {
+            Genes = new CattributeData[4];
+        }
         /// <summary>
         /// The <see cref="CattributeType"/> beng described.
         /// </summary>
-        public CattributeType Type { get; }
+        [DataMember]
+        public CattributeType Type { get; set; }
         /// <summary>
         /// Dominant gene.
         /// </summary>
+        [DataMember]
         public CattributeData Dominant => Genes[0];
         /// <summary>
         /// First recessive gene
         /// </summary>
+        [DataMember]
         public CattributeData RecessiveOne => Genes[1];
         /// <summary>
         /// Secondary recessive gene.
         /// </summary>
+        [DataMember]
         public CattributeData RecessiveTwo => Genes[2];
         /// <summary>
         /// Last recessive gene.
         /// </summary>
+        [DataMember]
         public CattributeData RecessiveThree => Genes[3];
         /// <summary>
         /// Cattributes
         /// </summary>
-        public CattributeData[] Genes { get; }
+        [DataMember]
+        public CattributeData[] Genes { get; set; }
     }
 }
