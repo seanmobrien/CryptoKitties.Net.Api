@@ -103,6 +103,7 @@
     <Compile Include="Integration\NethereumTests.cs" />
     <Compile Include="Integration\UserServiceIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Secrets.cs" />
     <Compile Include="Unit\AuctionQueryResponseMessageUnitTests.cs" />
     <Compile Include="Unit\Blockchain\ContractCallDataBuilderTests.cs" />
     <Compile Include="Unit\GeneScience\GeneScienceServiceTests.cs" />

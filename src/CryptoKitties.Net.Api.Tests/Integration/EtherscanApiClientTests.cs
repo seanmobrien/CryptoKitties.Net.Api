@@ -23,7 +23,7 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Integration
             var ret = new EtherscanApiClient(
                 new HttpClientRequestFactory()
             );
-            ret.SetApiKey("QE11FT94VDIYWB4S8C8YGMI64TYJE4HPZF");
+            ret.SetApiKey(Secrets.EtherscanApiKey);
             return ret;
         }
 

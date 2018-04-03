@@ -79,8 +79,15 @@ namespace CryptoKitties.Net.Blockchain
         {
             return int.Parse(GetRawValue(index)) == 0;
         }
-
-
+        /// <summary>
+        /// Determines if <paramref name="value"/> represents a null contract response.
+        /// </summary>
+        /// <param name="value">A <see cref="string"/> containing the value to parse.</param>
+        /// <returns><c>true</c> if <paramref name="value"/> is null; otherwise, <c>false</c>.</returns>
+        public static bool IsNull(string value)
+        {
+            return value == null || value == "0x";
+        }
 
         internal const int ChunkSize = 64;
     }

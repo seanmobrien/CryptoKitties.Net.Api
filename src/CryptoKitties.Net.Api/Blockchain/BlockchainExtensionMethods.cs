@@ -107,6 +107,9 @@ namespace CryptoKitties.Net.Blockchain
         /// <returns>The parsed <see cref="Models.Contracts.KittyResponseModel"/> value.</returns>
         public static Models.Contracts.KittyResponseModel Parse(string response)
         {
+            // was a null value returned?
+            if (ContractCallResultReader.IsNull(response)) { return default(Models.Contracts.KittyResponseModel); }
+            // Otherwise parse response
             var ret = new Models.Contracts.KittyResponseModel();
             var parser = new ContractCallResultReader(response);
             if (!parser.MoveNext()) { throw new ArgumentOutOfRangeException(nameof(response), response, Res.InvalidCallResponse);}
