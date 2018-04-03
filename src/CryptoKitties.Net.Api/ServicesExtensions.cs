@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -67,12 +68,17 @@ namespace CryptoKitties.Net
                     {
                         throw new WebException(response.StatusDescription);
                     }
-                    using (var stream = response.GetResponseStream())
+                    var data = ReadResponseStream(response);
+                    try
                     {
-                        if (stream == null) throw new InvalidOperationException(Res.NullResponseDetected);
-                        var serializer = new JsonSerializer();
-                        return serializer.Deserialize<TResult>(
-                            new JsonTextReader(new StreamReader(stream, Encoding.UTF8)));
+                        return JsonConvert.DeserializeObject<TResult>(data);
+                    }
+                    catch (JsonSerializationException jex)
+                    {
+                        // Note this likely means an error response was returned; we should parse and throw an informative error
+                        var ex = new InvalidOperationException("Unexpected failure parsing response", jex);
+                        ex.Data["JSON"] = data;
+                        throw ex;
                     }
                 }
             }
@@ -87,6 +93,15 @@ namespace CryptoKitties.Net
             }
         }
 
+        static string ReadResponseStream(HttpWebResponse response)
+        {
+            var stream = response.GetResponseStream();
+            if (stream == null) throw new InvalidOperationException();
+            using (var streamReader = new StreamReader(stream, Encoding.UTF8))
+            {
+                return streamReader.ReadToEnd();
+            }
+        }
 
         /// <summary>
         /// Converts a <see cref="BigInteger"/> to a binary string.

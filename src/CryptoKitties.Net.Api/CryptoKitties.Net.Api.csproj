@@ -89,6 +89,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\GeneScience\GeneSplicerFactory.cs" />
+    <Compile Include="Api\GeneScience\IGeneSplicer.cs" />
+    <Compile Include="Api\GeneScience\IGeneSplicerFactory.cs" />
     <Compile Include="Api\Models\ModelExtensions.cs" />
     <Compile Include="Api\RestClient\IUserService.cs" />
     <Compile Include="Api\RestClient\UserService.cs" />
@@ -113,9 +116,9 @@
     <Compile Include="Blockchain\CryptoKittyContractType.cs" />
     <Compile Include="Blockchain\Web3Client.cs" />
     <Compile Include="Exceptions\EtherscanApiException.cs" />
-    <Compile Include="GeneScience\CryptoUtility.cs" />
-    <Compile Include="GeneScience\GeneScienceService.cs" />
-    <Compile Include="GeneScience\GeneScienceUtilities.cs" />
+    <Compile Include="Api\GeneScience\CryptoUtility.cs" />
+    <Compile Include="Api\GeneScience\GeneScienceService.cs" />
+    <Compile Include="Api\GeneScience\GeneScienceUtilities.cs" />
     <Compile Include="Api\Models\Auction.cs" />
     <Compile Include="Api\Models\BlockSummary.cs" />
     <Compile Include="Api\Models\CattributeInfo.cs" />
@@ -124,18 +127,15 @@
     <Compile Include="Api\Models\Kitty.cs" />
     <Compile Include="Api\Models\KittyBase.cs" />
     <Compile Include="Api\Models\RelatedKitty.cs" />
-    <Compile Include="GeneScience\GeneSplicer.cs" />
-    <Compile Include="GeneScience\KaiEncoder.cs" />
-    <Compile Include="GeneScience\Models\CattributeCategoryData.cs" />
-    <Compile Include="GeneScience\Models\CattributeData.cs" />
-    <Compile Include="GeneScience\Models\GeneSet.cs" />
+    <Compile Include="Api\GeneScience\GeneSplicer.cs" />
+    <Compile Include="Api\GeneScience\Models\CattributeCategoryData.cs" />
+    <Compile Include="Api\GeneScience\Models\CattributeData.cs" />
+    <Compile Include="Api\GeneScience\Models\GeneSet.cs" />
     <Compile Include="Globals.CattributeCategories.cs" />
     <Compile Include="Globals.CattributeNames.cs" />
     <Compile Include="Globals.Cattributes.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="Merkator.Tools\ArrayHelpers.cs" />
-    <Compile Include="Merkator.Tools\Base58Encoding.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

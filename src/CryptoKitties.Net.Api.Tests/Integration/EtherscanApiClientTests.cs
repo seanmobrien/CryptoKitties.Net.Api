@@ -1,4 +1,5 @@
-﻿using CryptoKitties.Net.Api.RestClient;
+﻿using CryptoKitties.Net.Api.GeneScience;
+using CryptoKitties.Net.Api.RestClient;
 using CryptoKitties.Net.Blockchain;
 using CryptoKitties.Net.Blockchain.RestClient;
 using CryptoKitties.Net.Blockchain.RestClient.Messages;
@@ -88,10 +89,9 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Integration
 
             var target = CreateTarget();
             var data = target.GetKitty(612439).Result;
-            var genes = new CryptoKitties.Net.GeneScience.GeneSplicer(data.Genes);
+            var genes = new GeneSplicer(data.Genes);
             TestContext.WriteLine($"Hex: {genes.Genes.ToString(16)}\r\nBinary: {genes.Binary}\r\nKai: {genes.Kai}");
             TestContext.WriteLine(JsonConvert.SerializeObject(data));
-            TestContext.WriteLine($"The Other Kai Is: {GeneScience.GeneScienceUtilities.ComputeKai2(genes.Genes)}");
         }
         [TestMethod]
         public void Call_GetKitty_636658_ReturnsKittyGenes()
@@ -99,7 +99,7 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Integration
 
             var target = CreateTarget();
             var data = target.GetKitty(636658).Result;
-            var genes = new CryptoKitties.Net.GeneScience.GeneSplicer(data.Genes);
+            var genes = new GeneSplicer(data.Genes);
             TestContext.WriteLine($"Hex: {genes.Genes.ToString(16)}\r\nBinary: {genes.Binary}\r\nKai: {genes.Kai}");
             TestContext.WriteLine(JsonConvert.SerializeObject(data));
         }

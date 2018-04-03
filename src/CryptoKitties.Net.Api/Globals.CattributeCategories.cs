@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CryptoKitties.Net.Api.GeneScience.Models;
 using CryptoKitties.Net.Api.Models;
-using CryptoKitties.Net.GeneScience.Models;
 
 namespace CryptoKitties.Net
 {

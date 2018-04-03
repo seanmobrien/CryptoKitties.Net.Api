@@ -17,14 +17,22 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Integration
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        public void AuctionService_Get_ReturnsAuctionData()
+        public void AuctionService_Sire_ReturnsAuctionData()
         {
             var target = new AuctionService();
 
             var data = target.GetAuctions(new AuctionQueryRequestMessage(AuctionType.Sire)).Result;
 
             TestContext.WriteLine(JsonConvert.SerializeObject(data));
+        }
+        [TestMethod]
+        public void AuctionService_Sale_ReturnsAuctionData()
+        {
+            var target = new AuctionService();
 
+            var data = target.GetAuctions(new AuctionQueryRequestMessage(AuctionType.Sale)).Result;
+
+            TestContext.WriteLine(JsonConvert.SerializeObject(data));
         }
     }
 }

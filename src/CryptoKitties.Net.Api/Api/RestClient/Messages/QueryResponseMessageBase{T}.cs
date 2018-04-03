@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace CryptoKitties.Net.Api.RestClient.Messages
 {
@@ -13,7 +14,7 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
     [KnownType(typeof(AuctionQueryResponseMessage))]
     [KnownType(typeof(KittyQueryResponseMessage))]
     public abstract class QueryResponseMessageBase<TModel>
-        : ICollection<TModel>
+        //: ICollection<TModel>
         where TModel : class
     {
         /// <summary>
@@ -36,17 +37,17 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         /// Total number of auctions matching the query
         /// </summary>
         [DataMember(Name = "total")]
-        public Int64 Total { get; set; }
+        public long Total { get; set; }
         /// <summary>
         /// Index of the first auction 
         /// </summary>
         [DataMember(Name = "offset")]
-        public Int64 Offset { get; set; }
+        public long Offset { get; set; }
         /// <summary>
         /// Maximum number of items returned in this response.
         /// </summary>
         [DataMember(Name = "limit")]
-        public Int32 Limit { get; set; }
+        public int Limit { get; set; }
         
         /// <summary>
         /// An object that implements <see cref="IList{T}"/> for <see cref="Items"/> data.
@@ -54,6 +55,7 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         [IgnoreDataMember]
         protected IList<TModel> Items { get; set; }
 
+        /*
         #region ICollection{TModel} Implementation
         int ICollection<TModel>.Count => Items.Count;
         bool ICollection<TModel>.IsReadOnly => Items.IsReadOnly;
@@ -86,5 +88,6 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
             return Items.Remove(item);
         }
         #endregion
+        */
     }
 }

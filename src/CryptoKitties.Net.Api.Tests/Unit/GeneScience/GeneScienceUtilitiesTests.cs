@@ -1,4 +1,4 @@
-﻿using CryptoKitties.Net.GeneScience;
+﻿using CryptoKitties.Net.Api.GeneScience;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Math;
@@ -36,7 +36,7 @@ namespace CryptoKitties.Net.Api.Tests.Unit.Unit.GeneScience
 
         void RunTest(GeneScienceSet set)
         {
-            var actual = Net.Api.GeneScience.GeneScienceUtilities.SimulateOffspring(
+            var actual = GeneScienceUtilities.SimulateOffspring(
                 set.MatronGenome,
                 set.SireGenome,
                 set.MatronCooldownEndBlock,

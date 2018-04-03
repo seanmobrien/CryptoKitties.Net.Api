@@ -33,14 +33,24 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         /// </summary>
         [DataMember(Name="status")]
         public AuctionStatusType? Status { get; set; }
-
-   
+        /// <summary>
+        /// Optional generation filter
+        /// </summary>
+        [DataMember(Name = "generation", EmitDefaultValue = false)]
+        public int? Generation { get; set; }
+        /// <summary>
+        /// Filter string
+        /// </summary>
+        [DataMember(Name = "search", EmitDefaultValue = false)]
+        public string Search { get; set; }
 
         protected override void WriteToQueryDictionary(IDictionary<string, string> target)
         {
             base.WriteToQueryDictionary(target);
             SetValue(target, "type", Type.ToString(), x => x.ToLowerInvariant());
             SetValue(target, "status", Status, x => x.ToLowerInvariant());
+            SetValue(target, "generation", Generation);
+            SetValue(target, "search", Search, x => x.ToLowerInvariant());
         }
 
 

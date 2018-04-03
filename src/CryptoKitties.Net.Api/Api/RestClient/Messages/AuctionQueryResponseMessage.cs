@@ -1,7 +1,6 @@
-#define OLD_VS
-
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using CryptoKitties.Net.Api.Models;
 
@@ -20,15 +19,10 @@ namespace CryptoKitties.Net.Api.RestClient.Messages
         /// </summary>
         [DataMember(Name = "auctions")]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public IList<Auction> Auctions
+        public Auction[] Auctions
         {
-#if OLD_VS
-            get { return Items; }
-            set { Items = value; }
-#else
-            get => Items;
+            get => Items.ToArray();
             set => Items = value;
-#endif
-            }
+        }
     }
 }

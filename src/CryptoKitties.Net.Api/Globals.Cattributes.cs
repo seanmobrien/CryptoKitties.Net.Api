@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CryptoKitties.Net.Api.GeneScience.Models;
 using CryptoKitties.Net.Api.Models;
-using CryptoKitties.Net.GeneScience.Models;
 
 namespace CryptoKitties.Net
 {
